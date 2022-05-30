@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>聊天室-我的服务器</title>
+    <script>
+        let user="";
+        let ipv4=window.location.host;
+        if(ipv4.indexOf(":")>0){
+            ipv4=ipv4.substring(0,ipv4.indexOf(":")-1);
+        }
+        ipv4="http://"+ipv4+":2001";
+        function begin(){
+            user=document.getElementById("username").value;
+            document.getElementById("div").hidden="hidden";
+            document.getElementById("username").hidden="hidden";
+            document.getElementById("usernameButton").hidden="hidden";
+            document.write("<input type=\"text\" id=\"message\" size=\"50\" placeholder=\"此处输入消息\"/>");
+            document.write("<br />");
+            document.write("<button type=\"submit\" onclick=\"submit();\">发送</button>");
+            setInterval(function(){
+                fetch(ipv4,{
+                    method: "GET",
+                    userName: user,
+                    headers: {
+                        "Content-Type": "text/plain",
+                        "Test-Cors": "abc",
+                    },
+                    credentials: "include"
+                })
+                    .then((res) => res.json)
+                    .then((jsonData) => {
+                        console.log(jsonData);
+                        if(jsonData.data){
+                            
+                        }
+                    });
+            },1000);
+        }
+        function submit(){
+            let text=document.getElementById("message").value;
+            if(text.trim()===""){
+                alert("不能发送空消息！");
+                return;
+            }
+            fetch(ipv4,{
+                method: "POST",
+                userName: user,
+                message: document.getElementById("message").value,
+                headers: {
+                    "Content-Type": "text/plain",
+                    "Test-Cors": "abc",
+                },
+                credentials: "include"
+            })
+                .then((res) => res.json())
+                .then((jsonData) => {
+                    console.log(jsonData);
+                    document.getElementById("message").value="";
+                });
+        }
+        function add(){
+            let name=document.getElementById("username").value;
+            if(name.trim()===""){
+                alert("不能使用空用户名！");
+                return;
+            }
+            fetch(ipv4,{
+                method: "ADD",
+                userName: name,
+                headers: {
+                    "Content-Type": "application/json",
+                    "Test-Cors": "abc",
+                },
+                credentials: "include"
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    console.log(data);
+                    if(data.err){
+                        alert("该用户名已被使用！");
+                        return;
+                    }
+                    begin();
+                });
+        }
+    </script>
+</head>
+<body style="margin: 0px;">
+    <!--标题-->
+    <div style="display: block; background-color: #f1f1f1; padding: 20px; text-align: center; text-align: center;">
+        <h1>聊天室</h1>
+    </div>
+    <input type="text" id="username" size="50" placeholder="此处输入用户名"/>
+    <br />
+    <button type="submit" onclick="add();" id="usernameButton">确认</button>
+</body>
+</html>
