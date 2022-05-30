@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>上传文件-我的服务器</title>
+</head>
+<body style="margin: 0px;">
+    <!--标题-->
+    <div style="display: block; background-color: #f1f1f1; padding: 20px; text-align: center; text-align: center;">
+        <h1>文件上传</h1>
+    </div>
+    <!--表单-->
+    <form action="https://www.baidu.com" method="post" enctype="multipart/form-data" target="_blank" id="form">
+        <input type="file" name="file" size="50" />
+        <br />
+        <button type="submit">上传</button>
+    </form>
+    <script>
+        let ipv4=window.location.host;
+        let pos=ipv4.indexOf(":");
+        if(pos>0){
+            ipv4=ipv4.substring(0,pos-1);
+        }
+        document.getElementById("form").action="http://"+ipv4+":2000";
+    </script>
+</body>
+</html>
