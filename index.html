@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>我的服务器</title>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("div.upload").click(function(){
+                //上传文件动作
+                var temp=$(this);
+                temp.css("border-style", "inset");
+                window.open("upload","_blank");
+                setTimeout(function(){
+                    temp.css("border-style","outset");
+                },250);
+            });
+            $("div.chat").click(function(){
+                //聊天室动作
+                var temp=$(this);
+                temp.css("border-style", "inset");
+                window.open("chatRoom","_blank");
+                setTimeout(function(){
+                    temp.css("border-style","outset");
+                },250);
+            });
+        });
+    </script>
+</head>
+<body style="margin: 0;">
+    <!--标题-->
+    <div style="display: block; background-color: #f1f1f1; padding: 20px; text-align: center; text-align: center;">
+        <h1>欢迎，这是季子谦的服务器。</h1>
+    </div>
+    <!--上传文件-->
+    <div style="margin: 30px auto; background-color: #3ccad9; padding: 10px; color: #5b5fdbc2; max-width: 100px; text-align: center; border-style: outset; border-color: #4bd9e8;cursor: pointer;" class="upload">
+        <h2 style="margin:0px">上传文件</h2>
+    </div>
+    <!--聊天室-->
+    <div style="margin: 30px auto; background-color: #3ccad9; padding: 10px; color: #5b5fdbc2; max-width: 100px; text-align: center; border-style: outset; border-color: #4bd9e8;cursor: pointer;" class="chat">
+        <h2 style="margin:0px">聊天室</h2>
+    </div>
+</body>
+</html>
